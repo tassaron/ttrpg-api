@@ -27,8 +27,10 @@ setup(
     packages=proj_packages,
     package_dir={PACKAGE_NAME: SOURCE_DIRECTORY},
     install_requires=[
+        "python-dotenv",
         #"uWSGI",
         "django",
+        "djangorestframework",
         "dnd-character",
     ],
     url="https://github.com/tassaron/ttrpg-api",

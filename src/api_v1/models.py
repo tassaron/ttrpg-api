@@ -17,7 +17,7 @@ def load_character(character_data: str) -> DND_Character:
 
 class Character(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    data = models.CharField(max_length=5000, default=dump_character)
+    data = models.CharField(max_length=5000, default=dump_character, blank=True)
 
     def set_character(self, character: DND_Character) -> bool:
         try:
@@ -29,9 +29,6 @@ class Character(models.Model):
 
     def get_character(self) -> DND_Character:
         return load_character(self.data)
-
-    def get_character_data(self) -> dict:
-        return literal_eval(self.data)
 
     def __str__(self):
         return self.__class__.__qualname__
