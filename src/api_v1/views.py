@@ -49,7 +49,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
             serializer = self.serializer_class(row)
             data = serializer.data
             data.update({
-                "url": reverse_lazy('api:character-detail', args=[row.id], request=request)
+                "url": reverse_lazy('api_v1:character-detail', args=[row.id], request=request)
             })
             all_data.append(data)
         return Response(all_data)
@@ -60,7 +60,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
         serializer = self.serializer_class(character)
         data = serializer.data
         data.update({
-            "url": reverse_lazy('api:character-detail', args=[pk], request=request)
+            "url": reverse_lazy('api_v1:character-detail', args=[pk], request=request)
         })
         return Response(data)
 
