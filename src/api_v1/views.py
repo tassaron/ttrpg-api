@@ -10,6 +10,9 @@ from .serializers import UserSerializer, CharacterSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    """
+    Create a new user account by sending a POST request. Email is optional. Password will be re-hashed if changed in a PUT/PATCH request
+    """
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsOwnerOrReadOnly]
@@ -20,6 +23,7 @@ class UserViewSet(viewsets.ModelViewSet):
             serializer = self.serializer_class(row, context={'request': request})
             data = serializer.data
             del data["password"]
+            del data["email"]
             all_data.append(data)
         return Response(all_data)
 
@@ -28,10 +32,14 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = self.serializer_class(user, context={'request': request})
         data = serializer.data
         del data["password"]
+        del data["email"]
         return Response(data)
 
 
 class CharacterViewSet(viewsets.ModelViewSet):
+    """
+    "Data" must be a string repr of a Python dict
+    """
     queryset = Character.objects.all()
     serializer_class = CharacterSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
