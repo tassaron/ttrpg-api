@@ -1,7 +1,11 @@
 {% extends "rest_framework/base.html" %}
 
+{% block title %}
+{{ name }} - Tabletop RPG - character sheet REST API {{ request.version }}
+{% endblock %}
+
 {% block branding %}
 <a class='navbar-brand' rel="nofollow" href='{% url 'index' %}'>
-    Tabletop RPG - character sheet API
+    Tabletop RPG - character sheet REST API {{ request.version }}
 </a>
 {% endblock %}
