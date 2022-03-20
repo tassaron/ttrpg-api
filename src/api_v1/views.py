@@ -60,7 +60,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class CharacterViewSet(viewsets.ModelViewSet):
     """
-    "Data" must be a string repr of a Python dict
+    "Data" must be a string repr of a Python dict. It should be modified using the Extra Actions when possible
     """
     queryset = Character.objects.all()
     serializer_class = CharacterSerializer
@@ -96,3 +96,33 @@ class CharacterViewSet(viewsets.ModelViewSet):
         data = serializer.validate(request.data)
         instance = serializer.create(data)
         return Response(self.serializer_class(instance).data)
+
+    @action(detail=True, methods=["get", "put", "patch"])
+    def experience(self, request, *args, **kwargs):
+        """Alter experience points with PUT and POST. Leveling up/down is handled automatically"""
+
+        obj = self.get_object()
+        hydrated_character = obj.get_character()
+        if request.method != "GET":
+            try:
+                num = request.data
+                if type(num) == dict:
+                    num = int(num["data"])
+
+                if request.method == "PUT":
+                    hydrated_character.experience = num
+                elif request.method == "PATCH":
+                    hydrated_character.experience += num
+
+            except Exception as e:
+                return Response({"error": str(e)}, 404)
+
+            obj.set_character(hydrated_character)
+            obj.save()
+
+        return Response({
+            "data": obj.data,
+            "experience": int(hydrated_character.experience),
+            "level": hydrated_character.level,
+            "experience_to_next_level": hydrated_character.experience.to_next_level,
+        })
