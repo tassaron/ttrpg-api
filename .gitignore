@@ -8,3 +8,4 @@ env/
 *.log*
 *.egg-info
 *.sqlite3
+build/
