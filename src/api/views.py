@@ -1,3 +1,4 @@
+from django.http.request import QueryDict
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
@@ -106,7 +107,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
         if request.method != "GET":
             try:
                 num = request.data
-                if type(num) == dict:
+                if type(num) in (dict, QueryDict):
                     num = int(num["data"])
 
                 if request.method == "PUT":

@@ -11,7 +11,7 @@
 
 ## Development
 - Live-reloading dev server: `python3 src/manage.py runserver`
-- Create migrations if you change models: `python3 src/manage.py makemigrations api_v1`
+- Create migrations if you change models: `python3 src/manage.py makemigrations api`
 
 ## Production
 - Probably using uWSGI and Nginx just like my Flask projects?
