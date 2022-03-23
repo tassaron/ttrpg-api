@@ -42,6 +42,8 @@ class CharacterSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Character
         fields = ['user_id', 'data']
+
+    data = serializers.CharField(max_length=5000, initial=dump_character)
     
     def validate(self, attrs):
         if attrs["data"] == "":
