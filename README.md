@@ -1,7 +1,8 @@
 # REST API for managing character sheets for tabletop RPGs
 - Currently only supports the free ruleset of the DND 5e SRD.
-- Using my [dnd-character](https://github.com/tassaron/dnd-character) Python library</li>
+- Using my [dnd-character](https://github.com/tassaron/dnd-character) Python library
 - This is my first Django project created for practice
+- I appreciate any pull request from anyone :) I'll help out if you need guidance
 
 ## Installation
 - Create and activate new Python virtual environment
@@ -12,6 +13,7 @@
 ## Development
 - Live-reloading dev server: `python3 src/manage.py runserver`
 - Create migrations if you change models: `python3 src/manage.py makemigrations api`
+- Run API tests: `python3 src/manage.py test api`
 
 ## Production
 - Probably using uWSGI and Nginx just like my Flask projects?
