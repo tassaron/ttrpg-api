@@ -100,7 +100,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["get", "put", "patch"])
     def experience(self, request, *args, **kwargs):
-        """Alter experience points with PUT and POST. Leveling up/down is handled automatically"""
+        """Set experience points with PUT; use PATCH to add/subtract relatively. Leveling up/down is handled automatically"""
 
         obj = self.get_object()
         hydrated_character = obj.get_character()
